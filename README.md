@@ -1,4 +1,4 @@
-# ModManager (Factorio)
+# Abbyte Manager
 
 Gerenciador de mods para Factorio feito com Tauri (Rust) + React/TypeScript. Projeto acadêmico (faculdade), sem fins lucrativos, voltado a estudo e uso pessoal.
 
