@@ -1,0 +1,620 @@
+{
+  "category": "utilities",
+  "changelog": "---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.7\r\nDate: 2025-06-27\r\n  Changes:\r\n    - Updated translations from Crowdin.\r\n  Bugfixes:\r\n    - Fixed crash on on_configuration_changed.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.6\r\nDate: 2025-06-19\r\n  Changes:\r\n    - Updated translations from Crowdin.\r\n    - Updated mining drill search radius based on quality bonus added in 2.0.57.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.5\r\nDate: 2025-06-03\r\n  Features:\r\n    - Added \"ore blacklist\" of ores to ignore when they are depleted.\r\n  Changes:\r\n    - Added \"tiberium-ore\" to the ore blacklist by default for compatibility with Factorio and Conquer: Tiberian Dawn.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.4\r\nDate: 2025-05-30\r\n  Features:\r\n    - Pipes type to build is now selected automatically based on collision mask, connection category, and logistic network inventory (non-mobile networks only).\r\n  Changes:\r\n    - Updated translations from Crowdin.\r\n    - Pipe type setting is now a priority list of pipes to use when none are available in logistics.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.3\r\nDate: 2024-11-12\r\n  Changes:\r\n    - Many updated translations from Crowdin.\r\n  Bugfixes:\r\n    - Fixed that mining drill search area was half what it should be.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.2\r\nDate: 2024-10-16\r\n  Bugfixes:\r\n    - Fixed copy-paste error preventing some drills from being removed.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.1\r\nDate: 2024-10-15\r\n  Bugfixes:\r\n    - Fixed Big Mining Drill not being deconstructed if last ore was at edge of mining range.\r\n    - Added missing locale string for mod setting.\r\n    - Removed remaining debug console messages.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 1.0.0\r\nDate: 2024-10-14\r\n  Features:\r\n    - Updated for Factorio 2.0.\r\n    - Added setting to preserve wire-connected belts.\r\n  Changes:\r\n    - Overhauled out-of-resources detection to use entity status field for better performance and reliability.\r\n    - Changed \"debug\" remote interface to console command.\r\n  Bugfixes:\r\n    - Fixed potential desync when using debug remote interface.\r\n    - Fixed that some belts were not deconstructed when side-loading.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.4.4\r\nDate: 2024-08-25\r\n  Changes:\r\n    - Updated translations from Crowdin.\r\n  Bugfixes:\r\n    - Fixed error message when belt is destroyed/removed before it can be marked for deconstruction.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.4.3\r\nDate: 2024-08-17\r\n  Changes:\r\n    - Added minimum base version of 1.1.100 for API compatibility.\r\n  Bugfixes:\r\n    - Abort any ongoing belt deconstructions when belt setting is disabled.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.4.2\r\nDate: 2024-08-17\r\n  Changes:\r\n    - Updated translations from Crowdin.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.4.1\r\nDate: 2024-07-09\r\n  Bugfixes:\r\n    - Fixed errors when drills point at assemblers and other non-chest entities.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.4.0\r\nDate: 2024-07-07\r\n  Features:\r\n    - Added setting to also deconstruct unused beacons (enabled by default).\r\n    - Added setting to also deconstruct unused belts (DISabled by default).\r\n    - Belt deconstruction is greedy and will deconstruct belts up and downstream from the deconstructed drill if no item sources are found.\r\n    - Belt deconstruction tries to wait for the belts to naturally empty before deconstructing.  If items get stuck for more than 30 seconds, the belts will be deconstructed anyways.\r\n    - Belt deconstruction feature is *alpha* so make a backup before enabling the setting.  Please report any strange behavior or crashes!\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.16\r\nDate: 2024-07-04\r\n  Bugfixes:\r\n    - Fixed error when pipe ghosts aren't built fast enough.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.15\r\nDate: 2024-06-30\r\n  Changes:\r\n    - Updated Portugese translation thanks to LUISDASARTIMANHAS.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.14\r\nDate: 2024-06-30\r\n  Changes:\r\n    - Added setting to blacklist specific drill entities for mod compatibility.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.13\r\nDate: 2024-06-30\r\n  Changes:\r\n    - Updated many translations from crowdin and fixed typo\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.12\r\nDate: 2023-11-16\r\n  Changes:\r\n    - Added setting to allow deconstructing miners with circuit wire connections (thanks to DHandspikerWade).\r\n    - Disabled automatic deconstruction behavior on sandbox surfaces created by Blueprint Sandboxes and The Blueprint Designer Lab mods.\r\n  Bugfixes:\r\n    - Fix error messages / not deconstructing miners on surfaces without a valid Space Exploration zone type.\r\n    - Fixed possible stale queue data when changing settings by deleting the queue and regenerating it.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.11\r\nDate: 2023-11-12\r\n  Bugfixes:\r\n    - Actually fix the multiplayer error this time. (Properly disable on_nth_tick event when queue is empty.)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.10\r\nDate: 2023-11-10\r\n  Bugfixes:\r\n    - Added event subscription to on_load.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.9\r\nDate: 2023-10-04\r\n  Bugfixes:\r\n    - Fixed that one ore was stuck in each miner when deconstructed, at least most of the time.\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.8\r\nDate: 2023-06-21\r\n  Bugfixes:\r\n    - Fixed compatibility with Contruction Continued for ghost pipe creation. (Thanks to ComradeEcho)\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.7\r\nDate: 2023-02-20\r\n  Bugfixes:\r\n    - Fixed error message printed when building pipe ghosts.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.6\r\nDate: 2023-02-19\r\n  Features:\r\n    - New setting to disable the inserter chain check. Useful for mods that add burnt fuel results like Pyanodon's mods.\r\n  Changes:\r\n    - Updated translations from crowdin (Hungarian, Norwegian, Chinese)\r\n  Bugfixes:\r\n    - Ghost pipes are now built toward existing ghost pipes and underground pipes.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.5\r\nDate: 2022-12-30\r\n  Changes:\r\n    - Updated translations from crowdin (Polish and Portugese)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.4\r\nDate: 2022-09-30\r\n  Changes:\r\n    - Updated translations from crowdin (Portugese)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.3\r\nDate: 2022-07-04\r\n  Bugfixes:\r\n    - Fixed that miners would be instantly deconstructed in editor mode by removing player attributions from mod-generated commands. (Thanks to Raiguard for figuring it out)\r\n    - This fixes compatibility with Editor Extensions \"testing lab\" and other mods that use editor mode.\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.2\r\nDate: 2022-04-17\r\n  Bugfixes:\r\n    - Fixed out-of-memory error when used with even-width fluid miners, like Bob's Steam Powered Miner.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.1\r\nDate: 2022-03-16\r\n  Compatibility:\r\n    - Added mod settings to customize what pipe is used when replacing miners (i.e. kr-steel-pipe).\r\n  Bugfixes:\r\n    - Fixed crashes when Editor Extensions \"instant deconstruction\" is enabled.\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.3.0\r\nDate: 2021-11-21\r\n  New:\r\n    - Added support for drills with multiple resource types (robot256)\r\n  Compatibility:\r\n    - Improved multi-surface compatibility (Nicolas Lang)\r\n  Bugfixes:\r\n    - Removed empty fluid miners when setting changes (robot256)\r\n    - Fixed chests being deconstructed while still in use (robot256)\r\n    - Fixed a potential crash if an inserter is nearby the chest but not targeting the chest (robot256)\r\n    - Improved handling of invalid surfaces (Nicolas Lang)\r\n  Optimizations:\r\n    - Improved UPS by using on_event filters (robot256)\r\n    - Moved max_radius calculation to init_globals (robot256)\r\n  Changes:\r\n    - Refactored pipe building (Nicolas Lang)\r\n    - Only build pipes if a miner has more than one connection (robot256)\r\n    - Deconstruct inserters feeding fuel to burner inserters (robot256)\r\n    - Only build pipes to connections that are in use (robot256)\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.2.1\r\nDate: 2021-07-01\r\n  Compatibility:\r\n    - Improved compatibility with Space-Exploration (Nicolas Lang)\r\n  Bugfixes:\r\n    - Fixed error when drill was missing last_user attibute (Nicolas Lang)\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.2.0\r\nDate: 2021-06-04\r\n  New:\r\n    - Handle drills that are using fluids, by replacing them with pipes (Nicolas Lang)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.22\r\nDate: 2021-05-09\r\n  Bugfixes:\r\n    - Avoid errors if drills are instantly removed upon deconstruction (DeHackEd)\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.21\r\nDate: 2020-12-02\r\n  Compatibility:\r\n    - Updated Factorio version to 1.1 (almightyju)\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.20\r\nDate: 2020-08-16\r\n  Compatibility:\r\n    - Updated Factorio version to 1.0\r\n  Changes:\r\n    - Updated translations from crowdin\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.19\r\nDate: 2020-06-13\r\n  Changes:\r\n    - French and Ukrainian translations added\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.18\r\nDate: 2020-05-09\r\n  Changes:\r\n    - Catalan translation added (metalbass)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.17\r\nDate: 2020-03-23\r\n  Bugfixes:\r\n    - More missing locals\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.16\r\nDate: 2020-01-23\r\n  Compatibility:\r\n    - Updated Factorio version to 0.18, otherwise no change (Roang-zero1)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.15\r\nDate: 2020-01-11\r\n  Bugfixes:\r\n    - Fixed another missing local declaration for variable\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.14\r\nDate: 2019-12-31\r\n  Compatibility:\r\n    - Compatibility fix for Construction Drones mod (phoenixuprising)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.13\r\nDate: 2019-12-29\r\n  Bugfixes:\r\n    - Fixed missing local declaration for variable\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.12\r\nDate: 2019-02-28\r\n  Changes:\r\n    - Updated for 0.17\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.11\r\nDate: 2018-02-22\r\n  Changes:\r\n    - Better label for in-game option\r\n    - Added in-game changelog\r\n  Bugfixes:\r\n    - Fixed that checking resources didn't respect mining hardness\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.10\r\nDate: 2017-12-16\r\n  Compatibility:\r\n    - Updated Factorio version to 0.16, otherwise no change\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.9\r\nDate: 2017-06-30\r\n  Compatibility:\r\n    - Compatibility fix for mods using mining drills as position markers\r\n  Workarounds:\r\n    - Don't deconstruct miners that are hooked up to a circuit network\r\n  Changes:\r\n    - In-game option for removal of targets, instead of configuration file\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.8\r\nDate: 2017-04-26\r\n  Workarounds:\r\n    - Don't deconstruct miners that have fluids, until I have time to make it smarter\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.7\r\nDate: 2017-04-24\r\n  Compatibility:\r\n    - Updated Factorio version to 0.15, otherwise no change\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.6\r\nDate: 2017-02-24\r\n  Compatibility:\r\n    - Minor compatibility fix for modded drills that are mineable but not deconstructable\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.5\r\nDate: 2016-08-27\r\n  Compatibility:\r\n    - Updated Factorio version to 0.14, otherwise no change\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.4\r\nDate: 2016-08-06\r\n  Compatibility:\r\n    - This release requires factorio version 0.13.14\r\n  Workarounds:\r\n    - Removed workaround for drill ranges since factorio now exposes them in the prototype (no more data-final-fixes.lua)\r\n  Optimizations:\r\n    - Update search radius as drills are built, not always using the maximum range when not needed.\r\n  Changes:\r\n    - Now renews deconstruction orders for drills when they time out\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.3\r\nDate: 2016-08-03\r\n  Bugfixes:\r\n    - Made finding targeted chests more reliable.\r\n  Debug:\r\n    - Added remote calls for debug and init. /c remote.call(\"ad\",\"init\"), /c remote.call(\"ad\",\"debug\")\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.2\r\nDate: 2016-07-31\r\n  Optimizations:\r\n    - Moved from tick based checking to relying on events.\r\n    - No longer storing anything in global.\r\n  Bugfixes:\r\n    - More reliable check that the resource is not infinite\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.1\r\nDate: 2016-06-30\r\n  Bugfixes:\r\n    - Fixed a warning where the marked drill inserted into a container that is not minable\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.1.0\r\nDate: 2016-06-27\r\n  Compatibility:\r\n    - First version for Factorio 0.13.0\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.7\r\nDate: 2016-03-04\r\n  Bugfixes:\r\n    - fixed config being ignored (chests not getting picked up)\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.6\r\nDate: 2016-03-01\r\n  Bugfixes:\r\n    - fixed init not working properly when upgrading mod version\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.5\r\nDate: 2016-02-29\r\n  Bugfixes:\r\n    - fixed a desync issue\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.4\r\nDate: 2016-02-16\r\n  Compatibility:\r\n    - no more hardcoded drill ranges, modded drills now work out of the box\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.3\r\nDate: 2015-11-07\r\n  Bugfixes:\r\n    - fixed drills being forgotten when game was restarted\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.2\r\nDate: 2015-11-05\r\n  Changes:\r\n    - now (optionally) removes the chest that the drill outputs to\r\n---------------------------------------------------------------------------------------------------\r\nVersion: 0.0.1\r\nDate: 2015-11-04\r\n  Notes:\r\n    - initial release\r\n",
+  "created_at": "2016-06-27T21:37:45.018000Z",
+  "description": "# Auto Deconstruct\r\n\r\nAutomatically marks your mining drills for deconstruction when they run out of resources to mine, send spent miners and their modules back to base instead of leaving them idling in the field.\r\nOptionally removes the chest that the drill is outputting to (enabled by default).\r\n\r\n[Changelog](https://mods.factorio.com/mod/AutoDeconstruct/changelog)\r\n\r\nFor older versions and associated changelog, visit [the forum thread](https://forums.factorio.com/viewtopic.php?f=92&t=17566)",
+  "downloads_count": 320994,
+  "github_path": "softmix/AutoDeconstruct",
+  "homepage": "",
+  "images": [
+    {
+      "id": "9e9b191dd4de1ec0e4221ebdc9e9dcf29d9c5bc2",
+      "thumbnail": "https://assets-mod.factorio.com/assets/9e9b191dd4de1ec0e4221ebdc9e9dcf29d9c5bc2.thumb.png",
+      "url": "https://assets-mod.factorio.com/assets/9e9b191dd4de1ec0e4221ebdc9e9dcf29d9c5bc2.png"
+    }
+  ],
+  "last_highlighted_at": "2025-09-08",
+  "license": {
+    "description": "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty.",
+    "id": "default_mit",
+    "name": "mit",
+    "title": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "name": "AutoDeconstruct",
+  "owner": "mindmix",
+  "releases": [
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d72425",
+      "file_name": "AutoDeconstruct_0.1.0.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.13"
+      },
+      "released_at": "2016-06-27T21:37:45.024000Z",
+      "sha1": "aec92402944558cb30d06a9b09ce9569aed7a780",
+      "version": "0.1.0"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d72574",
+      "file_name": "AutoDeconstruct_0.1.1.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.13"
+      },
+      "released_at": "2016-06-30T01:38:58.954000Z",
+      "sha1": "1d4242b1a517760b9d176c12cf764dbdff5a78ae",
+      "version": "0.1.1"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d727be",
+      "file_name": "AutoDeconstruct_0.1.2.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.13"
+      },
+      "released_at": "2016-07-31T18:02:15.105000Z",
+      "sha1": "d80f0545ffc9f41bb760cd5ee25380f129ddf56d",
+      "version": "0.1.2"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d72c73",
+      "file_name": "AutoDeconstruct_0.1.3.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.13"
+      },
+      "released_at": "2016-08-03T16:54:40.091000Z",
+      "sha1": "84574cd25576b070a0c40f1cb8bc00e950bd1e56",
+      "version": "0.1.3"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d72c27",
+      "file_name": "AutoDeconstruct_0.1.4.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.13.14"
+      },
+      "released_at": "2016-08-06T02:31:46.350000Z",
+      "sha1": "5ee173102e5777017cd999889ee2efa59deb12f3",
+      "version": "0.1.4"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d728fb",
+      "file_name": "AutoDeconstruct_0.1.5.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.14"
+      },
+      "released_at": "2016-08-27T00:33:09.040000Z",
+      "sha1": "190b7bd2b70d09633307a86c94492090ff937ace",
+      "version": "0.1.5"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d73ee7",
+      "file_name": "AutoDeconstruct_0.1.6.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.14"
+      },
+      "released_at": "2017-02-24T22:21:49.068000Z",
+      "sha1": "cff5bd6a8f794b4cb444f40d4a4bb3e237a1a1c6",
+      "version": "0.1.6"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d73437",
+      "file_name": "AutoDeconstruct_0.1.7.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.15"
+      },
+      "released_at": "2017-04-25T04:59:27.980000Z",
+      "sha1": "7ea7a89f8d38cf5bc90ee874d3b5b13824edf84a",
+      "version": "0.1.7"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d73c2e",
+      "file_name": "AutoDeconstruct_0.1.8.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.15"
+      },
+      "released_at": "2017-04-26T06:03:29.264000Z",
+      "sha1": "817bf876aa8b76da28783fbce02b0337a0f30c63",
+      "version": "0.1.8"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d744ff",
+      "file_name": "AutoDeconstruct_0.1.9.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.15"
+      },
+      "released_at": "2017-06-30T18:50:04.483000Z",
+      "sha1": "d2ca30ac70817f689c5cc28ba1e0a03b4b6dc35a",
+      "version": "0.1.9"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a5f1ae6adcc441024d746df",
+      "file_name": "AutoDeconstruct_0.1.10.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.16"
+      },
+      "released_at": "2017-12-16T09:03:40.339000Z",
+      "sha1": "66feb4741e0f3c3376acfe8093c9bd48cbc136e6",
+      "version": "0.1.10"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5a8eb7903c712c000b6f1dff",
+      "file_name": "AutoDeconstruct_0.1.11.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.16"
+      },
+      "released_at": "2018-02-22T12:29:04.104000Z",
+      "sha1": "a6b5f66beadadb451dbd11e0e4cb5fb89f38483e",
+      "version": "0.1.11"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5c7820fbdab877000c3f7b9d",
+      "file_name": "AutoDeconstruct_0.1.12.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.17"
+      },
+      "released_at": "2019-02-28T17:57:15.556000Z",
+      "sha1": "4be16e2a1be50866ab32f02a04cc3ed899cc0d05",
+      "version": "0.1.12"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5e088e9bc39007000c5d7896",
+      "file_name": "AutoDeconstruct_0.1.13.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.17"
+      },
+      "released_at": "2019-12-29T11:31:39.538000Z",
+      "sha1": "7a90a8081174cb7e958af984f962b045b24f4358",
+      "version": "0.1.13"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5e0b06f72a08ba000d78dce9",
+      "file_name": "AutoDeconstruct_0.1.14.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.17"
+      },
+      "released_at": "2019-12-31T08:29:43.393000Z",
+      "sha1": "393840b10357d73da2d48926563fa6d2276b1e83",
+      "version": "0.1.14"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5e19d28e7c2acb000d3e6128",
+      "file_name": "AutoDeconstruct_0.1.15.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.17"
+      },
+      "released_at": "2020-01-11T13:50:06.604000Z",
+      "sha1": "cfc711f732c9c93024ff6746dfe5147eba58ea87",
+      "version": "0.1.15"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5e29f98f339ff2000c708aff",
+      "file_name": "AutoDeconstruct_0.1.16.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.18"
+      },
+      "released_at": "2020-01-23T19:52:47.294000Z",
+      "sha1": "71a63247c02ee0dbebace5975efe524b4460daf4",
+      "version": "0.1.16"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5e78dfc1936116000b142899",
+      "file_name": "AutoDeconstruct_0.1.17.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.18"
+      },
+      "released_at": "2020-03-23T16:11:45.200000Z",
+      "sha1": "e1253d1c3ee669b786021e8cdd7dc18aafc93db2",
+      "version": "0.1.17"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5eb67baa8779db000cf9f8aa",
+      "file_name": "AutoDeconstruct_0.1.18.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.18"
+      },
+      "released_at": "2020-05-09T09:45:14.953000Z",
+      "sha1": "86e4db99a71ee99ec7d20c5f8d6de45d8e9ce482",
+      "version": "0.1.18"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5ee4c799bfa2bf000bd6ed66",
+      "file_name": "AutoDeconstruct_0.1.19.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "0.18"
+      },
+      "released_at": "2020-06-13T12:33:29.269000Z",
+      "sha1": "c6cd19de1338d5069cac53de9adfc1d54d03a62c",
+      "version": "0.1.19"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5f38f7b121fccb65589b8fe5",
+      "file_name": "AutoDeconstruct_0.1.20.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.0"
+      },
+      "released_at": "2020-08-16T09:09:05.789000Z",
+      "sha1": "c9733ec2fde84c325c0cb6f44825582978b200fa",
+      "version": "0.1.20"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/5fc7d570c89bef87a7e49846",
+      "file_name": "AutoDeconstruct_0.1.21.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2020-12-02T17:57:04.681000Z",
+      "sha1": "c8d6d0c3d8c5bff253c70aa3279ff1881c3a8b67",
+      "version": "0.1.21"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6097916f59b7a1fe148bb81b",
+      "file_name": "AutoDeconstruct_0.1.22.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2021-05-09T07:38:23.767000Z",
+      "sha1": "df86c0f2f7df05f09c4119ad7b9f6999dc519a0d",
+      "version": "0.1.22"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/60b9bcaa940fefd2f7c7176f",
+      "file_name": "AutoDeconstruct_0.2.0.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2021-06-04T05:39:54.197000Z",
+      "sha1": "d2b043011956ad7904cd7430dbb4b636ec6346f5",
+      "version": "0.2.0"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/60e92e5a6175782859320ed5",
+      "file_name": "AutoDeconstruct_0.2.1.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2021-07-10T05:21:30.259000Z",
+      "sha1": "d2767b4be991bc121021c0baad06337e965825e6",
+      "version": "0.2.1"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/619b3996d9386e22922a2092",
+      "file_name": "AutoDeconstruct_0.3.0.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2021-11-22T06:32:54.349000Z",
+      "sha1": "77e48edc42e989ce0623648c927a9d37335a1193",
+      "version": "0.3.0"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6232d49d9ec9a00f888a0fb6",
+      "file_name": "AutoDeconstruct_0.3.1.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2022-03-17T06:26:37.506000Z",
+      "sha1": "340cb6d867e3d663c2df78a9f9a596b22410c461",
+      "version": "0.3.1"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/625c96a1603923fe63982849",
+      "file_name": "AutoDeconstruct_0.3.2.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2022-04-17T22:37:21.536000Z",
+      "sha1": "b4e85c887c47f056b80dedb4800804d65a6217f5",
+      "version": "0.3.2"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/62c35e0c22acaa21a03fc83e",
+      "file_name": "AutoDeconstruct_0.3.3.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2022-07-04T21:39:24.428000Z",
+      "sha1": "3f2a0017dc7ae300b25a1a669a91415a8349a2a8",
+      "version": "0.3.3"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/63378ba044e08d52dfedfba7",
+      "file_name": "AutoDeconstruct_0.3.4.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2022-10-01T00:36:48.051000Z",
+      "sha1": "f774d62b5256f35461e282575ed07c832b6effc3",
+      "version": "0.3.4"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/63aeef4230ca2c764965808a",
+      "file_name": "AutoDeconstruct_0.3.5.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2022-12-30T14:01:38.526000Z",
+      "sha1": "0fbae5b169c0334db70270f6af6b5f9e3e27c7b9",
+      "version": "0.3.5"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/63f2db9769339e642c56ccc8",
+      "file_name": "AutoDeconstruct_0.3.6.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2023-02-20T02:31:51.594000Z",
+      "sha1": "ef81ddbf61bb32b6e0f8a9b7689b9eca4ac658b7",
+      "version": "0.3.6"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/63f3b13402b47aa46f3571ff",
+      "file_name": "AutoDeconstruct_0.3.7.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2023-02-20T17:43:16.630000Z",
+      "sha1": "8858d2106001af9699b4c5b2c86daac844210ce8",
+      "version": "0.3.7"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6493b9f0b037e41b2f81ba68",
+      "file_name": "AutoDeconstruct_0.3.8.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2023-06-22T03:03:12.769000Z",
+      "sha1": "7f086996028cdbbe3045e8ecfbc104a9a488abc9",
+      "version": "0.3.8"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6550f81d41932d6790c47ada",
+      "file_name": "AutoDeconstruct_0.3.11.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2023-11-12T16:06:53.812000Z",
+      "sha1": "85b0f8449de730f5183ef9b3b982fd3e5fc77d49",
+      "version": "0.3.11"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6556b3aeb9b87aa971acbb6c",
+      "file_name": "AutoDeconstruct_0.3.12.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2023-11-17T00:28:30.575000Z",
+      "sha1": "c9e41d2b5a1132784c69a056bf6c2817d0616491",
+      "version": "0.3.12"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6681712266d16bda4efef4d7",
+      "file_name": "AutoDeconstruct_0.3.13.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-06-30T14:52:18.126000Z",
+      "sha1": "ee0c2712eae2bda68815dc9616db28d9284c871a",
+      "version": "0.3.13"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/66818030c9214c869f050e6c",
+      "file_name": "AutoDeconstruct_0.3.14.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-06-30T15:56:32.279000Z",
+      "sha1": "f405d6ae2feef98ef49bb8ba1fc82ce07ae76713",
+      "version": "0.3.14"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6681c575c9214c869f050e79",
+      "file_name": "AutoDeconstruct_0.3.15.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-06-30T20:52:05.115000Z",
+      "sha1": "d81bed1397100ec3889fad1b63ee8f3ac7868e77",
+      "version": "0.3.15"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6686a5b611db9fa07fdbb2a9",
+      "file_name": "AutoDeconstruct_0.3.16.zip",
+      "info_json": {
+        "dependencies": [],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-07-04T13:37:58.425000Z",
+      "sha1": "2b6230792398c7a1b9b16fa124052cff64c9636d",
+      "version": "0.3.16"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/66c11bcb402fdc0644e674f2",
+      "file_name": "AutoDeconstruct_0.4.3.zip",
+      "info_json": {
+        "dependencies": [
+          "base>=1.1.100"
+        ],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-08-17T21:53:15.881000Z",
+      "sha1": "e9e384180f99658f5046fa4b16e09df085fb7997",
+      "version": "0.4.3"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/66c79be2347c04b95a07fc01",
+      "file_name": "AutoDeconstruct_0.4.1.zip",
+      "info_json": {
+        "dependencies": [
+          "base>=1.1.100"
+        ],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-08-22T20:13:22.124000Z",
+      "sha1": "b1d32bf488ba5cd4e09f6d2639900277e07bc020",
+      "version": "0.4.1"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/66cbd7174aa0be0b331695cb",
+      "file_name": "AutoDeconstruct_0.4.4.zip",
+      "info_json": {
+        "dependencies": [
+          "base>=1.1.100"
+        ],
+        "factorio_version": "1.1"
+      },
+      "released_at": "2024-08-26T01:15:03.032000Z",
+      "sha1": "6713585142175119a3d3bc800c5ca8c8d845d8e2",
+      "version": "0.4.4"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/670d1f90df21001f6147fcfe",
+      "file_name": "AutoDeconstruct_1.0.0.zip",
+      "info_json": {
+        "dependencies": [
+          "base"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2024-10-14T13:41:36.705000Z",
+      "sha1": "41f1406e82bce7f15976076b2ac3f7f554e16f56",
+      "version": "1.0.0"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/670f176c6d82ab34d59f4e39",
+      "file_name": "AutoDeconstruct_1.0.1.zip",
+      "info_json": {
+        "dependencies": [
+          "base"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2024-10-16T01:31:24.587000Z",
+      "sha1": "26e78a8c9a9d5bb993d1c77667def8e7ef2673b2",
+      "version": "1.0.1"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/6710777d3b8ba53133eac3a0",
+      "file_name": "AutoDeconstruct_1.0.2.zip",
+      "info_json": {
+        "dependencies": [
+          "base"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2024-10-17T02:33:33.981000Z",
+      "sha1": "2ca8f98286a46a3621ac6c1b8eacbda719a6b8c4",
+      "version": "1.0.2"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/67336171e8af520202274d78",
+      "file_name": "AutoDeconstruct_1.0.3.zip",
+      "info_json": {
+        "dependencies": [
+          "base"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2024-11-12T14:08:49.935000Z",
+      "sha1": "515631ab4abd2dc29d8dd72e440c17bd34bfe5ae",
+      "version": "1.0.3"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/683963cfe8679781a932d3d3",
+      "file_name": "AutoDeconstruct_1.0.4.zip",
+      "info_json": {
+        "dependencies": [
+          "base >= 2.0.32"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2025-05-30T07:52:47.622000Z",
+      "sha1": "6ded27acaca489066c8933d90f42164341b05921",
+      "version": "1.0.4"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/683f75caa8185c1684f11e80",
+      "file_name": "AutoDeconstruct_1.0.5.zip",
+      "info_json": {
+        "dependencies": [
+          "base >= 2.0.32"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2025-06-03T22:23:06.934000Z",
+      "sha1": "a2192d1529ccac969113755964f479ac671f1cf4",
+      "version": "1.0.5"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/685466ba7c961b7431866ddf",
+      "file_name": "AutoDeconstruct_1.0.6.zip",
+      "info_json": {
+        "dependencies": [
+          "base >= 2.0.57"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2025-06-19T19:36:26.965000Z",
+      "sha1": "471eefc6fdbac9b1af9ad89220bd0add310e4505",
+      "version": "1.0.6"
+    },
+    {
+      "download_url": "/download/AutoDeconstruct/685f565608b65a0177f69867",
+      "file_name": "AutoDeconstruct_1.0.7.zip",
+      "info_json": {
+        "dependencies": [
+          "base >= 2.0.57"
+        ],
+        "factorio_version": "2.0"
+      },
+      "released_at": "2025-06-28T02:41:26.990000Z",
+      "sha1": "9ae7db10ac82a2e9d8df23eea7d4c0f02bbd1dc5",
+      "version": "1.0.7"
+    }
+  ],
+  "score": 6.099999999999916,
+  "source_url": "https://github.com/softmix/AutoDeconstruct",
+  "summary": "This mod marks drills that have no more resources to mine for deconstruction.",
+  "tags": [
+    "mining"
+  ],
+  "thumbnail": "/assets/60a54a8b98b229265cbf521baf5f49c88d81a98c.thumb.png",
+  "title": "Auto Deconstruct",
+  "updated_at": "2025-06-28T02:41:26.992000Z"
+}

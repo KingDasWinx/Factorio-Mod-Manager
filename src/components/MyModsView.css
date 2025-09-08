@@ -1,0 +1,81 @@
+/* Ensure My Mods view can scroll its list */
+.my-mods-view {
+	display: flex;
+	flex-direction: column;
+	min-height: 0; /* allow children to shrink for flex scroll */
+	height: 100%;
+}
+
+.my-mods-view .mods-list {
+	overflow-y: auto;
+	/* Fit within viewport minus header/search/actions area */
+	max-height: calc(100vh - 220px);
+	padding-right: 4px; /* space for scrollbar */
+}
+
+/* Nicer thin scrollbar (supported in Chromium-based) */
+.my-mods-view .mods-list::-webkit-scrollbar {
+	width: 8px;
+}
+.my-mods-view .mods-list::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+
+/* Group for bulk buttons */
+.bulk-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.bulk-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: var(--btn-bg, #2b2b2b);
+	color: var(--btn-fg, #fff);
+	border: 1px solid rgba(255,255,255,0.08);
+	border-radius: 6px;
+	padding: 6px 10px;
+	cursor: pointer;
+}
+
+.bulk-button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+/* Small helper for progress text */
+.bulk-progress {
+	margin-left: 8px;
+	font-size: 12px;
+	opacity: 0.8;
+}
+
+/* Two-row header layout */
+.my-mods-view .header {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.my-mods-view .header-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.my-mods-view .header-actions-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+/* Yellow style for disable-all button */
+.my-mods-view .header .header-actions-bottom .pause-all-button {
+	background: rgba(250, 204, 21, 0.15); /* amber-400 */
+	border: 1px solid rgba(250, 204, 21, 0.35);
+	color: #facc15;
+}
+.my-mods-view .header .header-actions-bottom .pause-all-button:hover {
+	background: rgba(250, 204, 21, 0.25);
+}
