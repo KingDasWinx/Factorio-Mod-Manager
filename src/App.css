@@ -83,6 +83,9 @@
   padding: 16px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 }
 
 /* Edge-pinned small circular toggle */
@@ -2605,7 +2608,7 @@
 
 .my-mods-view .header {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: space-between;
   margin-bottom: 24px;
   padding-bottom: 16px;
@@ -2628,6 +2631,13 @@
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+.download-queue-view .mods-stats .tab { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:6px 10px; border-radius:999px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
+
+
+.abby{
+  display: flex;
 }
 
 .my-mods-view .stat-item {

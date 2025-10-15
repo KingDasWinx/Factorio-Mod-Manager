@@ -45,6 +45,7 @@ export default function DownloadQueueView() {
 						<button className="clear-button" onClick={() => clearAll()} title="Limpar Fila"><XCircle size={14}/>Limpar</button>
 				</div>
 			</div>
+				<div className='abby'>
 
 				{/* Tabs */}
 				<div className="tabs">
@@ -56,11 +57,12 @@ export default function DownloadQueueView() {
 				{/* Stats below header, outside main div */}
 				{filtered.length > 0 && (
 					<div className="mods-stats">
-						<span className="stat-item total"><ListChecks size={14}/> Total: {total}</span>
-						<span className="stat-item active"><DownloadIcon size={14}/> A baixar: {toDownload}</span>
-						<span className="stat-item done"><CheckCircle2 size={14}/> Baixados: {completed}</span>
+						<span className="stat-item joao total"><ListChecks size={14}/> Total: {total}</span>
+						<span className="stat-item joao active"><DownloadIcon size={14}/> A baixar: {toDownload}</span>
+						<span className="stat-item joao done"><CheckCircle2 size={14}/> Baixados: {completed}</span>
 					</div>
 				)}
+				</div>
 
 			{loading ? (
 				<div className="loading-container"><div className="spinner"/><p>Carregando fila...</p></div>
