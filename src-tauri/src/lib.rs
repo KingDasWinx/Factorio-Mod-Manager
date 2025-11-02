@@ -1850,8 +1850,9 @@ pub fn run() {
             download_queue::pause_download,
             download_queue::resume_download,
             download_queue::remove_from_queue,
-            download_queue::move_to_top
-            ,download_queue::clear_download_queue
+            download_queue::move_to_top,
+            download_queue::clear_download_queue,
+            download_queue::cancel_all_downloads
         ])
         .setup(|app| {
             // Load persisted queue and start if needed

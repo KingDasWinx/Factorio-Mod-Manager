@@ -235,14 +235,6 @@ export default function MyModsView() {
                 className="search-input"
               />
             </div>
-            <button
-              className="refresh-button"
-              onClick={loadInstalledMods}
-              disabled={!activeProfile}
-            >
-              <RefreshCw size={16} />
-              Atualizar
-            </button>
           </div>
         </div>
         <div className="header-actions-bottom">

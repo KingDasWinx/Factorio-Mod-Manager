@@ -50,6 +50,7 @@ export function useDownloadQueue() {
 	const remove = useCallback((id: string) => invoke('remove_from_queue', { id }), []);
 	const prioritize = useCallback((id: string) => invoke('move_to_top', { id }), []);
 	const clearAll = useCallback(() => invoke('clear_download_queue'), []);
+	const cancelAll = useCallback(() => invoke('cancel_all_downloads'), []);
 
-	return { items, loading, refresh, enqueue, pauseAll, resumeAll, pause, resume, remove, prioritize, clearAll };
+	return { items, loading, refresh, enqueue, pauseAll, resumeAll, pause, resume, remove, prioritize, clearAll, cancelAll };
 }

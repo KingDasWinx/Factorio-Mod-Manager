@@ -79,6 +79,11 @@ impl DownloadQueueManager {
 
 	// Programmatic enqueue used by dependency resolver/background tasks
 	pub fn enqueue_item_direct(&self, app: &AppHandle, mod_name: String, version: String, profile_name: String) -> String {
+		// Auto-despausar se estiver pausado
+		if let Ok(mut paused) = self.paused_all.lock() {
+			*paused = false;
+		}
+		
 		// Clean lower versions queued for same mod/profile
 		self.remove_lower_versions(&mod_name, &profile_name, &version);
 		let id = Uuid::new_v4().to_string();
@@ -191,6 +196,9 @@ pub fn enqueue_download(
 	version: String,
 	profile_name: String,
 ) -> Result<String, String> {
+	// Auto-despausar se estiver pausado
+	*state.paused_all.lock().map_err(|_| "Falha ao despausar")? = false;
+	
 	let mut q = state.queue.lock().map_err(|_| "Falha ao bloquear fila")?;
 	let id = Uuid::new_v4().to_string();
 	let item = DownloadItem {
@@ -310,6 +318,22 @@ pub fn move_to_top(app: AppHandle, state: State<DownloadQueueManager>, id: Strin
 	Ok("Movido para o topo".into())
 }
 
+#[tauri::command]
+pub fn cancel_all_downloads(app: AppHandle, state: State<DownloadQueueManager>) -> Result<String, String> {
+	// Pausar todos os downloads e cancelar qualquer download em andamento
+	*state.paused_all.lock().map_err(|_| "Falha ao pausar")? = true;
+	if let Some(tx) = state.cancel_tx.lock().unwrap().take() { let _ = tx.send(()); }
+	
+	// Remover todos os downloads que não estão completos
+	let mut q = state.queue.lock().map_err(|_| "Falha ao bloquear fila")?;
+	q.retain(|item| matches!(item.status, DownloadStatus::Completed));
+	drop(q);
+	
+	state.save_persist();
+	state.emit_update(&app);
+	Ok("Todos os downloads cancelados".into())
+}
+
 async fn stream_download(manager: &DownloadQueueManager, app: &AppHandle, item: &DownloadItem) -> Result<(), String> {
 	// Paths e arquivo de destino
 	let profiles_dir = super::get_profiles_dir_pub()?;
@@ -393,8 +417,13 @@ async fn stream_download(manager: &DownloadQueueManager, app: &AppHandle, item: 
 	let mut downloaded: u64 = 0;
 	let mut last_emit = Instant::now();
 	let mut last_emit_bytes: u64 = 0;
-	let min_emit_interval = std::time::Duration::from_millis(200);
+	let min_emit_interval = std::time::Duration::from_millis(500); // Aumentado para 500ms para melhor estabilidade
 	let min_emit_bytes: u64 = 256 * 1024; // 256KB
+	
+	// Sistema de amostras para cálculo de velocidade mais preciso
+	let mut speed_samples: Vec<(Instant, u64)> = Vec::new();
+	let max_samples = 10; // Manter últimas 10 amostras
+	let sample_window = std::time::Duration::from_secs(5); // Janela de 5 segundos
 	let mut retries: u32 = 0;
 	let max_retries: u32 = 5;
 	let (tx, mut rx) = oneshot::channel::<()>();
@@ -419,13 +448,37 @@ async fn stream_download(manager: &DownloadQueueManager, app: &AppHandle, item: 
 						// Determine totals for progress if known
 						let total_all = total_known.or(total_remaining.map(|r| r.saturating_add(downloaded))).unwrap_or(0);
 						if should_emit || (total_known.is_some() && downloaded == total_all) {
-							let elapsed_total = start.elapsed().as_secs_f64();
-							let interval_secs = last_emit.elapsed().as_secs_f64();
-							// Instant speed based on recent interval; fallback to total
-							let interval_bytes = downloaded.saturating_sub(last_emit_bytes);
-							let speed_interval = if interval_secs>0.0 { interval_bytes as f64 / interval_secs } else { 0.0 };
-							let speed_total = if elapsed_total>0.0 { downloaded as f64 / elapsed_total } else { 0.0 };
-							let speed = if speed_interval > 0.0 { speed_interval } else { speed_total };
+							let now = Instant::now();
+							
+							// Adicionar nova amostra
+							speed_samples.push((now, downloaded));
+							
+							// Remover amostras antigas (fora da janela de tempo)
+							speed_samples.retain(|(time, _)| now.duration_since(*time) <= sample_window);
+							
+							// Limitar número de amostras
+							if speed_samples.len() > max_samples {
+								speed_samples.drain(0..speed_samples.len() - max_samples);
+							}
+							
+							// Calcular velocidade baseada nas amostras
+							let speed = if speed_samples.len() >= 2 {
+								let oldest = &speed_samples[0];
+								let newest = &speed_samples[speed_samples.len() - 1];
+								let time_diff = newest.0.duration_since(oldest.0).as_secs_f64();
+								let bytes_diff = newest.1.saturating_sub(oldest.1);
+								
+								if time_diff > 0.0 {
+									bytes_diff as f64 / time_diff
+								} else {
+									0.0
+								}
+							} else {
+								// Fallback para velocidade total se não há amostras suficientes
+								let elapsed_total = start.elapsed().as_secs_f64();
+								if elapsed_total > 0.0 { downloaded as f64 / elapsed_total } else { 0.0 }
+							};
+							
 							let progress = if total_all>0 { downloaded as f32 / total_all as f32 } else { 0.0 };
 							let eta = if speed>0.0 && total_all>0 { Some(((total_all - downloaded) as f64 / speed) as u64) } else { None };
 
@@ -484,7 +537,8 @@ async fn stream_download(manager: &DownloadQueueManager, app: &AppHandle, item: 
 				}
 			},
 			_ = &mut rx => {
-				// cancelado
+				// cancelado - remover arquivo parcial se existir
+				let _ = tokio::fs::remove_file(&dest_path).await;
 				return Err("Cancelado".into());
 			}
 		}
