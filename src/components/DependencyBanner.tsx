@@ -14,18 +14,22 @@ interface ProgressPayload {
 export default function DependencyBanner() {
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState<ProgressPayload | null>(null);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     let unsubs: Array<() => void> = [];
 
     const setup = async () => {
       const u1 = await listen('dependency-resolver:started', (e) => {
+        setIsFinished(false);
         setVisible(true);
         setProgress({ ...(e.payload as any) });
       });
       const u2 = await listen('dependency-resolver:progress', (e) => {
-        setVisible(true);
-        setProgress({ ...(e.payload as any) });
+        if (!isFinished) {
+          setVisible(true);
+          setProgress({ ...(e.payload as any) });
+        }
       });
       const uErr = await listen('dependency-resolver:error', (e) => {
         setVisible(true);
@@ -36,7 +40,8 @@ export default function DependencyBanner() {
         }, 2000);
       });
       const u3 = await listen('dependency-resolver:finished', (e) => {
-        setProgress({ ...(e.payload as any) });
+        setProgress({ ...(e.payload as any), percent: 100 });
+        setIsFinished(true);
         // small delay to show completed state
         setTimeout(() => {
           setVisible(false);

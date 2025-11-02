@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X, Download, Calendar, Tag, Crown } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { useProfiles } from '../context/ProfileContext';
+import { useEscapeKey } from '../hooks/useEscapeKey';
 
 interface ModVersionInfo {
   version: string;
@@ -36,6 +37,9 @@ export default function ModVersionModal({
   
   // Usar o perfil ativo do contexto global
   const { activeProfile } = useProfiles();
+
+  // Hook para fechar modal com ESC
+  useEscapeKey(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen && modName) {

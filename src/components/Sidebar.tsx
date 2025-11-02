@@ -51,7 +51,7 @@ export default function Sidebar({ activeTab, setActiveTab, onProfileClick, activ
           {!isCollapsed && <span className="nav-text">{activeProfile.name}</span>}
         </button>
         <button
-          className="nav-item"
+          className="nav-item run-button"
           onClick={async () => {
             try {
               await invoke<string>('run_factorio');

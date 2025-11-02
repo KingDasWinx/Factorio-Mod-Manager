@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
 import type { ModDetailsOpenPayload } from "./components/ModDetailsView";
 import ProfileModal from "./components/ProfileModal";
-import ProfileCreation from "./components/ProfileCreation";
+import ProfileCreationModal from "./components/ProfileCreationModal";
 import ErrorModal from "./components/ErrorModal";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import { useErrorHandler } from "./hooks/useErrorHandler";
@@ -14,9 +14,17 @@ import "./App.css";
 import DependencyBanner from "./components/DependencyBanner";
 
 function AppContent() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('all-mods');
+  // Load saved tab from localStorage, default to 'all-mods'
+  const [activeTab, setActiveTab] = useState<ActiveTab>(() => {
+    try {
+      const savedTab = localStorage.getItem('activeTab');
+      return (savedTab as ActiveTab) || 'all-mods';
+    } catch {
+      return 'all-mods';
+    }
+  });
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-  const [isCreatingProfile, setIsCreatingProfile] = useState(false);
+  const [isProfileCreationModalOpen, setIsProfileCreationModalOpen] = useState(false);
   const [detailsPayload, setDetailsPayload] = useState<ModDetailsOpenPayload | null>(null);
   
   const { 
@@ -45,12 +53,11 @@ function AppContent() {
       // ignore – provider will keep current active on failure
     }
     await refreshProfiles();
-    setIsCreatingProfile(false);
+    setIsProfileCreationModalOpen(false);
     setActiveTab('all-mods');
   };
 
   const handleBackToMain = () => {
-    setIsCreatingProfile(false);
     // If returning from details, go back to the originating tab
     if (activeTab === 'mod-details' && detailsPayload) {
       setActiveTab(detailsPayload.fromTab);
@@ -85,6 +92,18 @@ function AppContent() {
     return () => window.removeEventListener('open-mod-details', handler as EventListener);
   }, [activeTab]);
 
+  // Save active tab to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      // Don't save 'mod-details' as it's a temporary state
+      if (activeTab !== 'mod-details') {
+        localStorage.setItem('activeTab', activeTab);
+      }
+    } catch {
+      // Ignore localStorage errors
+    }
+  }, [activeTab]);
+
   if (isLoading) {
     return (
       <div className="app-container loading">
@@ -92,18 +111,6 @@ function AppContent() {
           <div className="loading-spinner"></div>
           <p>Carregando perfis...</p>
         </div>
-      </div>
-    );
-  }
-
-  // Se estiver criando um perfil
-  if (isCreatingProfile) {
-    return (
-      <div className="app-container">
-        <ProfileCreation 
-          onProfileCreated={handleProfileCreated}
-          onBack={handleBackToMain}
-        />
       </div>
     );
   }
@@ -155,10 +162,16 @@ function AppContent() {
         activeProfileIndex={activeProfileIndex}
         setActiveProfileIndex={setActiveProfileIndex}
         onCreateNew={() => {
-          setIsCreatingProfile(true);
+          setIsProfileCreationModalOpen(true);
           setIsProfileModalOpen(false);
         }}
         onProfilesChange={refreshProfiles}
+      />
+
+      <ProfileCreationModal
+        isOpen={isProfileCreationModalOpen}
+        onClose={() => setIsProfileCreationModalOpen(false)}
+        onProfileCreated={handleProfileCreated}
       />
     </div>
   );

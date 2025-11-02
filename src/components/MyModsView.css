@@ -9,7 +9,7 @@
 .my-mods-view .mods-list {
 	overflow-y: auto;
 	/* Fit within viewport minus header/search/actions area */
-	max-height: calc(100vh - 220px);
+	/* max-height: calc(100vh - 220px); */
 	padding-right: 4px; /* space for scrollbar */
 }
 
@@ -54,11 +54,6 @@
 }
 
 /* Two-row header layout */
-.my-mods-view .header {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
 .my-mods-view .header-top {
 	display: flex;
 	align-items: center;
@@ -67,15 +62,15 @@
 .my-mods-view .header-actions-bottom {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 }
 
 /* Yellow style for disable-all button */
-.my-mods-view .header .header-actions-bottom .pause-all-button {
+.pause-all-button {
 	background: rgba(250, 204, 21, 0.15); /* amber-400 */
 	border: 1px solid rgba(250, 204, 21, 0.35);
 	color: #facc15;
 }
-.my-mods-view .header .header-actions-bottom .pause-all-button:hover {
+.pause-all-button:hover {
 	background: rgba(250, 204, 21, 0.25);
 }

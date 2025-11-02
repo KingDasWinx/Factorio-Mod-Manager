@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-dialog";
 import { useState } from "react";
 import { Profile } from "../types";
+import { useEscapeKey } from "../hooks/useEscapeKey";
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -29,10 +30,17 @@ export default function ProfileModal({
   const [pathValid, setPathValid] = useState<boolean | null>(null);
   const [exeValid, setExeValid] = useState<boolean | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<{ index: number; folderName: string; profileName: string } | null>(null);
+  
+  // Hook para fechar modal com ESC
+  useEscapeKey(isOpen, onClose);
+  useEscapeKey(!!editingFolder, () => setEditingFolder(null));
+  useEscapeKey(!!confirmDelete, () => setConfirmDelete(null));
+  
   if (!isOpen) return null;
 
   const handleActivateProfile = (index: number) => {
     setActiveProfileIndex(index);
+    onClose(); // Fechar o modal automaticamente após selecionar um perfil
   };
 
   const beginEdit = async (folderName: string) => {
@@ -136,7 +144,7 @@ export default function ProfileModal({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay profile-modal" onClick={onClose}>
       <div className="modal-content adj" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Gerenciar Perfis</h2>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { RefreshCw, Trash2, AlertCircle, Power, PowerOff, Search, CheckCircle2, XCircle } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { useProfiles } from '../context/ProfileContext';
+import { useEscapeKey } from '../hooks/useEscapeKey';
 import './MyModsView.css';
 
 interface InstalledMod {
@@ -28,9 +29,13 @@ export default function MyModsView() {
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [bulkToggling, setBulkToggling] = useState<null | 'enable' | 'disable'>(null);
   const [deleteAllConfirmation, setDeleteAllConfirmation] = useState(false);
-  
+
   // Usar perfil ativo do contexto global
   const { activeProfile } = useProfiles();
+
+  // Hook para fechar modais com ESC
+  useEscapeKey(!!deleteConfirmation, () => setDeleteConfirmation(null));
+  useEscapeKey(deleteAllConfirmation, () => setDeleteAllConfirmation(false));
 
   useEffect(() => {
     if (activeProfile?.folder_name) {
@@ -40,10 +45,10 @@ export default function MyModsView() {
 
   const loadInstalledMods = async () => {
     if (!activeProfile?.folder_name) return;
-    
+
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const mods = await invoke<InstalledMod[]>('get_installed_mods', {
         profileName: activeProfile.folder_name
@@ -59,16 +64,16 @@ export default function MyModsView() {
 
   const handleDeleteMod = async (modName: string, fileName: string) => {
     if (!activeProfile?.folder_name) return;
-    
+
     setIsDeletingMod(modName);
-    
+
     try {
       await invoke('delete_mod_file', {
         profileName: activeProfile.folder_name,
         modName,
         filePath: fileName
       });
-      
+
       // Recarregar a lista após deletar
       await loadInstalledMods();
       setDeleteConfirmation(null);
@@ -95,9 +100,9 @@ export default function MyModsView() {
 
   const handleToggleModStatus = async (modName: string, currentEnabled: boolean) => {
     if (!activeProfile?.folder_name) return;
-    
+
     setIsTogglingMod(modName);
-    
+
     try {
       const newStatus = !currentEnabled;
       await invoke('toggle_mod_status', {
@@ -105,7 +110,7 @@ export default function MyModsView() {
         modName,
         enabled: newStatus
       });
-      
+
       // Recarregar a lista após alterar status
       await loadInstalledMods();
     } catch (error) {
@@ -200,8 +205,8 @@ export default function MyModsView() {
           <AlertCircle size={48} />
           <h3>Erro ao carregar mods</h3>
           <p>{error}</p>
-          <button 
-            className="retry-button" 
+          <button
+            className="retry-button"
             onClick={loadInstalledMods}
           >
             <RefreshCw size={16} />
@@ -218,53 +223,53 @@ export default function MyModsView() {
         <div className="header-top">
           <div className="header-left">
             <h2>Meus Mods</h2>
-            {installedMods.length > 0 && (
-              <div className="mods-stats">
-                <span className="stat-item active">
-                  <Power size={14} />
-                  {installedMods.filter(m => m.enabled).length} ativos
-                </span>
-                <span className="stat-item inactive">
-                  <PowerOff size={14} />
-                  {installedMods.filter(m => !m.enabled).length} inativos
-                </span>
-                <span className="stat-item total">
-                  Total: {installedMods.length}
-                </span>
-              </div>
-            )}
           </div>
           <div className="header-info" style={{ gap: 8 }}>
             <div className="search-container">
-            <Search size={16} />
-            <input
-              type="text"
-              placeholder="Buscar mods..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-          </div>
-          <button 
-            className="refresh-button" 
-            onClick={loadInstalledMods}
-            disabled={!activeProfile}
-          >
-            <RefreshCw size={16} />
-            Atualizar
-          </button>
+              <Search size={16} />
+              <input
+                type="text"
+                placeholder="Buscar mods..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            <button
+              className="refresh-button"
+              onClick={loadInstalledMods}
+              disabled={!activeProfile}
+            >
+              <RefreshCw size={16} />
+              Atualizar
+            </button>
           </div>
         </div>
         <div className="header-actions-bottom">
+          {installedMods.length > 0 && (
+            <div className="mods-stats">
+              <span className="stat-item active">
+                <Power size={14} />
+                {installedMods.filter(m => m.enabled).length} ativos
+              </span>
+              <span className="stat-item inactive">
+                <PowerOff size={14} />
+                {installedMods.filter(m => !m.enabled).length} inativos
+              </span>
+              <span className="stat-item total">
+                Total: {installedMods.length}
+              </span>
+            </div>
+          )}
           <div className="bulk-actions">
             <button className="resume-all-button" onClick={handleEnableAll} disabled={!activeProfile || bulkToggling !== null || bulkDeleting} title="Ativar todos os mods">
-              <CheckCircle2 size={16} /> Ativar todos
+              <CheckCircle2 size={14} /> Ativar todos
             </button>
             <button className="pause-all-button" onClick={handleDisableAll} disabled={!activeProfile || bulkToggling !== null || bulkDeleting} title="Desativar todos os mods">
-              <XCircle size={16} /> Desativar todos
+              <XCircle size={14} /> Desativar todos
             </button>
             <button className="clear-button" onClick={() => setDeleteAllConfirmation(true)} disabled={!activeProfile || bulkToggling !== null || bulkDeleting || installedMods.length === 0} title="Excluir todos os mods">
-              <Trash2 size={16} /> Excluir todos
+              <Trash2 size={14} /> Excluir todos
             </button>
             {(bulkToggling || bulkDeleting) && (
               <span className="bulk-progress">
@@ -282,7 +287,7 @@ export default function MyModsView() {
           <h3>{installedMods.length === 0 ? 'Nenhum mod instalado' : 'Nenhum mod encontrado'}</h3>
           <p>
             {installedMods.length === 0 ? (
-              activeProfile 
+              activeProfile
                 ? 'Você ainda não baixou nenhum mod para este perfil.'
                 : 'Selecione um perfil para ver os mods instalados.'
             ) : (
@@ -297,13 +302,11 @@ export default function MyModsView() {
         <div className="mods-list">
           {filteredMods.map((mod) => (
             <div key={`${mod.name}-${mod.version}`} className="mod-list-item" onClick={() => {
-              const evt = new CustomEvent('open-mod-details', { detail: { modName: mod.name, fromTab: 'my-mods' }});
+              const evt = new CustomEvent('open-mod-details', { detail: { modName: mod.name, fromTab: 'my-mods' } });
               window.dispatchEvent(evt);
             }}>
-              <div className="mod-name">{mod.name}</div>
-              
-              <div className="mod-version">v{mod.version}</div>
-              
+              <div className="mod-name">{mod.name} <span className="queue-version">v{mod.version}</span></div>
+
               <button
                 className={`toggle-switch ${mod.enabled ? 'active' : 'inactive'}`}
                 onClick={(e) => { e.stopPropagation(); handleToggleModStatus(mod.name, mod.enabled); }}
@@ -317,7 +320,7 @@ export default function MyModsView() {
                   </div>
                 )}
               </button>
-              
+
               <button
                 className="delete-icon-button"
                 onClick={(e) => { e.stopPropagation(); handleDeleteClick(mod.name, mod.version, mod.file_name); }}

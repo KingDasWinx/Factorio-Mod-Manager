@@ -1,4 +1,5 @@
 import { X, AlertCircle, Copy, Download } from 'lucide-react';
+import { useEscapeKey } from '../hooks/useEscapeKey';
 
 interface ErrorModalProps {
   isOpen: boolean;
@@ -13,6 +14,9 @@ interface ErrorModalProps {
 }
 
 export default function ErrorModal({ isOpen, onClose, error }: ErrorModalProps) {
+  // Hook para fechar modal com ESC
+  useEscapeKey(isOpen, onClose);
+  
   if (!isOpen) return null;
 
   const formatTimestamp = (date: Date) => {

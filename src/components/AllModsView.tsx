@@ -345,7 +345,6 @@ export default function AllModsView() {
       {!hasSearched && (
         <div className="initial-state">
           <h3>Buscar Mods do Factorio</h3>
-          <p>Digite algo na caixa de busca para encontrar mods incríveis para o seu jogo!</p>
         </div>
       )}
 

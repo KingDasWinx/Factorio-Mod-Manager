@@ -214,6 +214,9 @@ pub async fn resolve_and_enqueue_dependencies(
 
 				// Skip base game regardless of operator (e.g., "base>=1.1.100")
 				if dep_name.eq_ignore_ascii_case("base") { continue; }
+				
+				// Skip mods that come with the base game (Space Age DLC and Quality mod)
+				if dep_name.eq_ignore_ascii_case("space-age") || dep_name.eq_ignore_ascii_case("quality") { continue; }
 
 				// Record and expand
 				record_req(&mut required, &dep_name, &min_ver, cmp_versions);

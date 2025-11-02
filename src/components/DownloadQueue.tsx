@@ -34,71 +34,80 @@ export default function DownloadQueueView() {
 
 	return (
 		<div className="download-queue-view">
-				<div className="header">
+			<div className="header">
 				<div className="header-left">
 					<h2>Fila de Download</h2>
+
+					{/* Tabs */}
+					<div className="tabs">
+						<button className={`tab ${tab === 'todos' ? 'active' : ''}`} onClick={() => setTab('todos')}><Layers size={14} /> Todos</button>
+						<button className={`tab ${tab === 'baixados' ? 'active' : ''}`} onClick={() => setTab('baixados')}><CheckCircle2 size={14} /> Baixados</button>
+						<button className={`tab ${tab === 'pendentes' ? 'active' : ''}`} onClick={() => setTab('pendentes')}><DownloadIcon size={14} /> Pendentes</button>
+					</div>
 				</div>
-				<div className="header-info">
-					<button className="refresh-button" onClick={() => refresh()}>Atualizar</button>
-					<button className="pause-all-button" onClick={() => pauseAll()}><Pause size={14}/>Pausar Todos</button>
-					<button className="resume-all-button" onClick={() => resumeAll()}><Play size={14}/>Retomar Todos</button>
-						<button className="clear-button" onClick={() => clearAll()} title="Limpar Fila"><XCircle size={14}/>Limpar</button>
+
+
+				<div className='header-right'>
+					{/* Stats below header, outside main div */}
+					{filtered.length > 0 && (
+						<div className="mods-stats">
+							<span className="stat-item joao total"><ListChecks size={14} /> Total: {total}</span>
+							<span className="stat-item joao active"><DownloadIcon size={14} /> A baixar: {toDownload}</span>
+							<span className="stat-item joao done"><CheckCircle2 size={14} /> Baixados: {completed}</span>
+						</div>
+					)}
+					{/* Buttons */}
+					<div className="header-info">
+						<button className="refresh-button" onClick={() => refresh()}>Atualizar</button>
+						<button className="pause-all-button" onClick={() => pauseAll()}><Pause size={14} />Pausar Todos</button>
+						<button className="resume-all-button" onClick={() => resumeAll()}><Play size={14} />Retomar Todos</button>
+						<button className="clear-button" onClick={() => clearAll()} title="Limpar Fila"><XCircle size={14} />Limpar</button>
+					</div>
 				</div>
 			</div>
-				<div className='abby'>
-
-				{/* Tabs */}
-				<div className="tabs">
-					<button className={`tab ${tab==='todos' ? 'active' : ''}`} onClick={() => setTab('todos')}><Layers size={14}/> Todos</button>
-					<button className={`tab ${tab==='baixados' ? 'active' : ''}`} onClick={() => setTab('baixados')}><CheckCircle2 size={14}/> Baixados</button>
-					<button className={`tab ${tab==='pendentes' ? 'active' : ''}`} onClick={() => setTab('pendentes')}><DownloadIcon size={14}/> Pendentes</button>
-				</div>
-
-				{/* Stats below header, outside main div */}
-				{filtered.length > 0 && (
-					<div className="mods-stats">
-						<span className="stat-item joao total"><ListChecks size={14}/> Total: {total}</span>
-						<span className="stat-item joao active"><DownloadIcon size={14}/> A baixar: {toDownload}</span>
-						<span className="stat-item joao done"><CheckCircle2 size={14}/> Baixados: {completed}</span>
-					</div>
-				)}
-				</div>
 
 			{loading ? (
-				<div className="loading-container"><div className="spinner"/><p>Carregando fila...</p></div>
+				<div className="loading-container"><div className="spinner" /><p>Carregando fila...</p></div>
 			) : filtered.length === 0 ? (
 				<div className="empty-state"><div className="empty-icon">📥</div><h3>Nenhum item na fila</h3></div>
 			) : (
 				<div className="queue-list scrollable">
-					{(tab === 'baixados' ? completedItems : (tab === 'pendentes' ? pendingItems : [...pendingItems, ...completedItems])).map(item => (
-						<div key={item.id} className={`queue-item status-${typeof item.status === 'string' ? item.status.toLowerCase() : 'failed'}`}>
-							<div className="queue-main">
-								<div className="queue-title">{item.mod_name} <span className="queue-version">v{item.version}</span></div>
-								<div className="status">{typeof item.status === 'string' ? item.status : 'Failed'}</div>
-							</div>
-							<div className="progress">
-								<div className="bar" style={{ width: `${Math.floor(item.progress * 100)}%` }} />
-							</div>
-							{typeof item.status === 'string' && item.status === 'Downloading' && (
-								<div className="meta-row">
-									<span className="speed">{fmtSpeed(item.speed_bps)}</span>
-									<span className="eta">{item.eta_secs != null ? `ETA ${fmtEta(item.eta_secs)}` : ''}</span>
+					{(tab === 'baixados' ? completedItems : (tab === 'pendentes' ? pendingItems : [...pendingItems, ...completedItems])).map(item => {
+						const isCompleted = typeof item.status === 'string' && item.status === 'Completed';
+						return (
+							<div key={item.id} className={`queue-item status-${typeof item.status === 'string' ? item.status.toLowerCase() : 'failed'} ${isCompleted ? 'completed' : ''}`}>
+								<div className="queue-main">
+									<div className="queue-title">{item.mod_name} <span className="queue-version">v{item.version}</span></div>
+									<div className="status">{typeof item.status === 'string' ? item.status : 'Failed'}</div>
 								</div>
-							)}
-							<div className="actions">
-								{typeof item.status === 'string' && item.status === 'Paused' ? (
-									<button onClick={() => resume(item.id)} title="Retomar"><Play size={16}/></button>
-								) : (
-									<button onClick={() => pause(item.id)} title="Pausar"><Pause size={16}/></button>
+								{!isCompleted && (
+									<div className="progress">
+										<div className="bar" style={{ width: `${Math.floor(item.progress * 100)}%` }} />
+									</div>
 								)}
-								<button onClick={() => prioritize(item.id)} title="Priorizar"><ArrowUp size={16}/></button>
-								<button onClick={() => remove(item.id)} title="Remover"><Trash2 size={16}/></button>
+								{typeof item.status === 'string' && item.status === 'Downloading' && (
+									<div className="meta-row">
+										<span className="speed">{fmtSpeed(item.speed_bps)}</span>
+										<span className="eta">{item.eta_secs != null ? `ETA ${fmtEta(item.eta_secs)}` : ''}</span>
+									</div>
+								)}
+								{!isCompleted && (
+									<div className="actions">
+										{typeof item.status === 'string' && item.status === 'Paused' ? (
+											<button onClick={() => resume(item.id)} title="Retomar"><Play size={16} /></button>
+										) : (
+											<button onClick={() => pause(item.id)} title="Pausar"><Pause size={16} /></button>
+										)}
+										<button onClick={() => prioritize(item.id)} title="Priorizar"><ArrowUp size={16} /></button>
+										<button onClick={() => remove(item.id)} title="Remover"><Trash2 size={16} /></button>
+									</div>
+								)}
 							</div>
-						</div>
-					))}
+						);
+					})}
 					{tab !== 'baixados' && paused.length > 0 && (
 						<div className="paused-section">
-							<div className="paused-header"><Pause size={14}/> Pausados</div>
+							<div className="paused-header"><Pause size={14} /> Pausados</div>
 							{paused.map(item => (
 								<div key={item.id} className={`queue-item status-paused`}>
 									<div className="queue-main">
@@ -109,9 +118,9 @@ export default function DownloadQueueView() {
 										<div className="bar" style={{ width: `${Math.floor(item.progress * 100)}%` }} />
 									</div>
 									<div className="actions">
-										<button onClick={() => resume(item.id)} title="Retomar"><Play size={16}/></button>
-										<button onClick={() => prioritize(item.id)} title="Priorizar"><ArrowUp size={16}/></button>
-										<button onClick={() => remove(item.id)} title="Remover"><Trash2 size={16}/></button>
+										<button onClick={() => resume(item.id)} title="Retomar"><Play size={16} /></button>
+										<button onClick={() => prioritize(item.id)} title="Priorizar"><ArrowUp size={16} /></button>
+										<button onClick={() => remove(item.id)} title="Remover"><Trash2 size={16} /></button>
 									</div>
 								</div>
 							))}
