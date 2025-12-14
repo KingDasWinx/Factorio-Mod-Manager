@@ -80,7 +80,7 @@ Disclaimer: This project is not affiliated with, endorsed by, or associated with
 ## Screenshots
 
 1. Mods Screen
-![Mods Screen](Factorio-Mod-Manager/Factorio-Mod-Manager/public/app-prints/mods-screen.png)
+![Mods Screen](public/app-prints/mods-screen.png)
 
 2. Mod Details
 ![Mod Details](docs/screenshots/02-mod-details.png)
