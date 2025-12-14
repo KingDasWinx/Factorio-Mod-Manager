@@ -3,9 +3,7 @@
 <!-- HEADER STYLE: CLASSIC -->
 <div align="center">
 
-<img src="readmeai/assets/logos/purple.svg" width="30%" style="position: relative; top: 0; right: 0;" alt="Project Logo"/>
-
-# ABBYTE-MANAGER-MAIN
+# FACTORIO-MANAGER
 
 <em></em>
 
@@ -82,7 +80,7 @@ Disclaimer: This project is not affiliated with, endorsed by, or associated with
 ## Screenshots
 
 1. Mods Screen
-![Mods Screen](docs/screenshots/01-mods.png)
+![Mods Screen](Factorio-Mod-Manager/Factorio-Mod-Manager/public/app-prints/mods-screen.png)
 
 2. Mod Details
 ![Mod Details](docs/screenshots/02-mod-details.png)
