@@ -83,16 +83,18 @@ Disclaimer: This project is not affiliated with, endorsed by, or associated with
 ![Mods Screen](public/app-prints/mods-screen.png)
 
 2. Mod Details
-![Mod Details](docs/screenshots/02-mod-details.png)
+![Mod Details](public/app-prints/single-1.png)
+![Mod Details](public/app-prints/single-2.png)
+![Mod Details](public/app-prints/single-3.png)
 
-3. My Downloaded Mods
-![My Downloaded Mods](docs/screenshots/03-my-mods.png)
+4. My Downloaded Mods
+![My Downloaded Mods](public/app-prints/active-mods.png)
 
-4. Download Queue
-![Download Queue](docs/screenshots/04-download-queue.png)
+5. Download Queue
+![Download Queue](public/app-prints/mods-download.png)
 
-5. Profiles
-![Profiles](docs/screenshots/05-profiles.png)
+6. Profiles
+![Profiles](public/app-prints/accounts.png)
 
 ## Project Structure
 
