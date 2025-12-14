@@ -53,6 +53,9 @@
 
 ## Overview
 
+Abbyte Manager is a desktop Factorio mod manager built with Tauri (Rust backend) and React/TypeScript. It is an academic, non‑profit project intended for study and personal use.
+
+Disclaimer: This project is not affiliated with, endorsed by, or associated with Wube Software/Factorio. Trademarks and names belong to their respective owners.
 
 
 ---
@@ -65,6 +68,33 @@
 | 🔩 | **Code Quality**  | <ul><li>TypeScript strict mode enabled (`tsconfig.json`)</li><li>ESLint + Prettier configured (see `.eslintrc.js`, `.prettierrc`)</li><li>Rust clippy & rustfmt enforced in CI (`cargo clippy`, `cargo fmt`)</li></ul> |
 
 ---
+
+### Functional Features
+
+- Mods catalog (official API): search by name, basic filters, local cache; backend proxy to avoid CORS in the frontend
+- Mod details & releases: dependency resolution aligned to the Factorio version required by the parent mod; ignores `base` and optional/incompatible markers
+- Robust download queue: tabs for All, Downloaded, Pending; pause/resume/clear; buffered writes, throttled progress; stall detection and resume via HTTP Range
+- My Mods: scrollable list with bulk actions — Enable all, Disable all (yellow style), Delete all (with confirmation)
+- Profiles: create/edit/delete; each profile has its own mods/config folders; active profile persisted in `AppData/Roaming/ModManager/.config`; automatic link of Factorio’s `mods` directory to the active profile’s mods folder
+  - Windows: uses directory junction (`mklink /J`) without admin privileges; if a real `mods` folder exists, it is backed up to `mods-backup[-timestamp]`
+- Run the game (RUN): sidebar button; uses profile-specific executable path if defined or the global path; opens a selector and saves as default when missing
+
+## Screenshots
+
+1. Mods Screen
+![Mods Screen](docs/screenshots/01-mods.png)
+
+2. Mod Details
+![Mod Details](docs/screenshots/02-mod-details.png)
+
+3. My Downloaded Mods
+![My Downloaded Mods](docs/screenshots/03-my-mods.png)
+
+4. Download Queue
+![Download Queue](docs/screenshots/04-download-queue.png)
+
+5. Profiles
+![Profiles](docs/screenshots/05-profiles.png)
 
 ## Project Structure
 
@@ -630,8 +660,9 @@
 
 This project requires the following dependencies:
 
-- **Programming Language:** TypeScript
-- **Package Manager:** Npm, Cargo
+- **Node.js:** LTS recommended
+- **Rust + Cargo:** compatible with Tauri v2
+- **Windows:** Visual Studio Build Tools 2022 (C++), or an equivalent toolchain
 
 ### Installation
 
@@ -665,40 +696,73 @@ Build Abbyte-Manager-main from the source and intsall dependencies:
 <!-- SHIELDS BADGE CURRENTLY DISABLED -->
 	<!-- [![cargo][cargo-shield]][cargo-link] -->
 	<!-- REFERENCE LINKS -->
-	<!-- [cargo-shield]: None -->
-	<!-- [cargo-link]: None -->
+	<!-- [cargo-shield]: https://img.shields.io/badge/Cargo-000000.svg?style={badge_style}&logo=Rust&logoColor=white -->
+	<!-- [cargo-link]: https://doc.rust-lang.org/cargo/ -->
 
-	**Using [cargo](None):**
+	**Using [cargo](https://doc.rust-lang.org/cargo/):**
 
 	```sh
-	❯ echo 'INSERT-INSTALL-COMMAND-HERE'
+	❯ cargo build --manifest-path src-tauri/Cargo.toml
 	```
 
 ### Usage
 
 Run the project with:
 
-**Using [npm](https://www.npmjs.com/):**
-```sh
-npm start
+**Windows (PowerShell):**
+
+```powershell
+# Option 1: script
+./dev.bat
+
+# Option 2: manual
+cmd /c '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\VsDevCmd.bat" && npm run tauri dev'
 ```
-**Using [cargo](None):**
+
+**Other platforms:**
+
+```bash
+npm run tauri dev
+```
+
+**Using cargo (with tauri-cli installed):**
+
 ```sh
-echo 'INSERT-RUN-COMMAND-HERE'
+cargo tauri dev
+```
+
+### Build
+
+Build desktop artifacts:
+
+```sh
+npm run build
+npm run tauri build
 ```
 
 ### Testing
 
-Abbyte-manager-main uses the {__test_framework__} test framework. Run the test suite with:
+No formal JavaScript test suite yet. For the Rust backend, run:
 
-**Using [npm](https://www.npmjs.com/):**
+**Using cargo:**
+```sh
+cargo test --manifest-path src-tauri/Cargo.toml
+```
+
+If you have configured JavaScript/TypeScript tests:
+
+**Using npm:**
 ```sh
 npm test
 ```
-**Using [cargo](None):**
-```sh
-echo 'INSERT-TEST-COMMAND-HERE'
-```
+
+---
+
+## Configuration
+
+- App config: `AppData/Roaming/ModManager/.config` (JSON)
+  - Examples: `cache_expiry_hours`, `game_exe_path`, `selected_profile`
+- Profile config: `profile.config` inside each profile (`name`, `mods_path`, `factorio_exe_path`, etc.)
 
 ---
 
