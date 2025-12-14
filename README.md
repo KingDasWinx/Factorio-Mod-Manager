@@ -25,8 +25,15 @@
 <img src="https://img.shields.io/badge/bat-31369E.svg?style=default&logo=bat&logoColor=white" alt="bat">
 <img src="https://img.shields.io/badge/CSS-663399.svg?style=default&logo=CSS&logoColor=white" alt="CSS">
 
+<br>
+<a href="#aviso-de-nao-afiliacao"><img src="https://img.shields.io/badge/N%C3%A3o%20Afiliado-Wube%20Software%2FFactorio-red?style=for-the-badge" alt="Não Afiliado"></a>
 </div>
 <br>
+
+<a id="aviso-de-nao-afiliacao"></a>
+> [!IMPORTANT]
+> Este projeto não é afiliado, endossado ou associado à Wube Software/Factorio.
+> Marcas e nomes pertencem aos seus respectivos proprietários.
 
 ---
 
@@ -34,6 +41,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
+- [Aviso de Não Afiliação](#aviso-de-nao-afiliacao)
 - [Features](#features)
 - [Project Structure](#project-structure)
     - [Project Index](#project-index)
